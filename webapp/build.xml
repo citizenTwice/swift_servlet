@@ -1,88 +1,88 @@
 <?xml version="1.0"?>
 <project name="swift_servlet" default="build" basedir=".">
 
-	<!-- ===================== Property Definitions =========================== -->
-	<!-- File and Directory Names -->
-	<property name="app.name" value="${ant.project.name}"/>
-	<property name="app.version" value="1.0"/>
-	<property name="build.home" value="build"/>
-	<property name="dist.home" value="dist"/>
-	<property name="lib.home" value="lib"/>
+    <!-- ===================== Property Definitions =========================== -->
+    <!-- File and Directory Names -->
+    <property name="app.name" value="${ant.project.name}"/>
+    <property name="app.version" value="1.0"/>
+    <property name="build.home" value="build"/>
+    <property name="dist.home" value="dist"/>
+    <property name="lib.home" value="lib"/>
     <property name="catalina.home" value="${user.home}/programs/apache-tomcat-8.5.16/" />
-	<property name="lib.compile.home" value="${catalina.home}/lib/"/>
-	<property name="deploy.local.home" value="${catalina.home}/webapps"/>
-	<property name="deploy.local.bin" value="${catalina.home}/bin"/>
-	<!--  Compilation Control Options -->
-	<property name="compile.debug" value="true"/>
-	<property name="compile.debuglv" value="lines,vars,source"/>
-	<property name="compile.deprecation" value="false"/>
-	<property name="compile.optimize" value="true"/>
-	<!-- JNI lib dependencies -->
-	<property  name="catalina.jnilib.home" value="/Users/Shared/templib/" />
+    <property name="lib.compile.home" value="${catalina.home}/lib/"/>
+    <property name="deploy.local.home" value="${catalina.home}/webapps"/>
+    <property name="deploy.local.bin" value="${catalina.home}/bin"/>
+    <!--  Compilation Control Options -->
+    <property name="compile.debug" value="true"/>
+    <property name="compile.debuglv" value="lines,vars,source"/>
+    <property name="compile.deprecation" value="false"/>
+    <property name="compile.optimize" value="true"/>
+    <!-- JNI lib dependencies -->
+    <property  name="catalina.jnilib.home" value="/Users/Shared/templib/" />
 
-	<!-- ==================== Compilation Classpath =========================== -->
-	<path id="common.classpath">
-		<pathelement location="${build.home}"/>
-		<fileset dir="${lib.home}" includes="**/*.jar"/>
-	</path>
-	<path id="compile.classpath">
-		<pathelement location="${build.home}"/>
-		<fileset dir="${lib.compile.home}" includes="**/*.jar"/>
-	</path>
+    <!-- ==================== Compilation Classpath =========================== -->
+    <path id="common.classpath">
+        <pathelement location="${build.home}"/>
+        <fileset dir="${lib.home}" includes="**/*.jar"/>
+    </path>
+    <path id="compile.classpath">
+        <pathelement location="${build.home}"/>
+        <fileset dir="${lib.compile.home}" includes="**/*.jar"/>
+    </path>
 
-	<!-- ==================== Compile target =========================== -->
-	<target name="build" depends="prepare" description="Compile Java sources">
-		<!-- Compile Java classes as necessary -->
-		<mkdir dir="${build.home}/WEB-INF/classes"/>
-		<javac debug="${compile.debug}" debuglevel="${compile.debuglv}" srcdir="src" includeAntRuntime="false" destdir="${build.home}/WEB-INF/classes">
-			<classpath refid="common.classpath"/>
-			<classpath refid="compile.classpath"/>
-		</javac>
-		<!-- copy all properties files too -->
-		<copy todir="${build.home}/WEB-INF/classes">
-			<fileset dir="src" includes="**/*.properties"/>
-		</copy>
-	</target>
+    <!-- ==================== Compile target =========================== -->
+    <target name="build" depends="prepare" description="Compile Java sources">
+        <!-- Compile Java classes as necessary -->
+        <mkdir dir="${build.home}/WEB-INF/classes"/>
+        <javac debug="${compile.debug}" debuglevel="${compile.debuglv}" srcdir="src" includeAntRuntime="false" destdir="${build.home}/WEB-INF/classes">
+            <classpath refid="common.classpath"/>
+            <classpath refid="compile.classpath"/>
+        </javac>
+        <!-- copy all properties files too -->
+        <copy todir="${build.home}/WEB-INF/classes">
+            <fileset dir="src" includes="**/*.properties"/>
+        </copy>
+    </target>
 
-	<!-- ==================== Dist Target ===================================== -->
-	<target name="dist" depends="build" description="Create binary distribution">
-		<mkdir dir="${dist.home}"/>
-		<!-- Create application WAR file -->
-		<jar jarfile="${dist.home}/${app.name}.war" basedir="${build.home}"/>
-	</target>
+    <!-- ==================== Dist Target ===================================== -->
+    <target name="dist" depends="build" description="Create binary distribution">
+        <mkdir dir="${dist.home}"/>
+        <!-- Create application WAR file -->
+        <jar jarfile="${dist.home}/${app.name}.war" basedir="${build.home}"/>
+    </target>
 
-	<!-- ==================== All Target ====================================== -->
-	<target name="all" depends="clean,build,dist" description="Clean build and dist "/>
+    <!-- ==================== All Target ====================================== -->
+    <target name="all" depends="clean,build,dist" description="Clean build and dist "/>
 
-	<!-- ==================== Clean Target ==================================== -->
-	<target name="clean" description="Delete old build and dist directories">
-		<delete dir="${build.home}"/>
-		<delete dir="${dist.home}"/>
-	</target>
+    <!-- ==================== Clean Target ==================================== -->
+    <target name="clean" description="Delete old build and dist directories">
+        <delete dir="${build.home}"/>
+        <delete dir="${dist.home}"/>
+    </target>
 
-	<!-- ==================== Depoloy LOCAL traget ============================ -->
-	<target name="deploy.LOCAL" depends="build,dist" description="Deploy application to local servlet container">
-		<copy file="${dist.home}/${app.name}.war" tofile="${deploy.local.home}/${app.name}.war"/>
-	</target>
+    <!-- ==================== Depoloy LOCAL traget ============================ -->
+    <target name="deploy.LOCAL" depends="build,dist" description="Deploy application to local servlet container">
+        <copy file="${dist.home}/${app.name}.war" tofile="${deploy.local.home}/${app.name}.war"/>
+    </target>
 
-	<!-- ==================== Restart LOCAL container ========================= -->
-	<target name="bounce.LOCAL" depends="deploy.LOCAL" description="Restart local servlet container">
-		<mkdir dir="tmp"/>
-		<exec executable="${deploy.local.bin}/shutdown.sh" output="tmp/tomcat.out" error="tmp/tomcat.err" />
-		<exec executable="${deploy.local.bin}/startup.sh" output="tmp/tomcat.out" error="tmp/tomcat.err" append="true">
-			<env key="CATALINA_OPTS" value="-Djava.library.path=${catalina.jnilib.home}" />
-		</exec>
-	</target>
+    <!-- ==================== Restart LOCAL container ========================= -->
+    <target name="bounce.LOCAL" depends="deploy.LOCAL" description="Restart local servlet container">
+        <mkdir dir="tmp"/>
+        <exec executable="${deploy.local.bin}/shutdown.sh" output="tmp/tomcat.out" error="tmp/tomcat.err" />
+        <exec executable="${deploy.local.bin}/startup.sh" output="tmp/tomcat.out" error="tmp/tomcat.err" append="true">
+            <env key="CATALINA_OPTS" value="-Djava.library.path=${catalina.jnilib.home}" />
+        </exec>
+    </target>
 
-	<!-- ==================== Prepare Target ================================== -->
-	<target name="prepare">
-		<mkdir dir="${build.home}"/>
-		<copy todir="${build.home}">
-			<fileset dir="web"/>
-		</copy>
-		<mkdir dir="${build.home}/WEB-INF/lib"/>
-		<copy todir="${build.home}/WEB-INF/lib">
-			<fileset dir="lib"/>
-		</copy>
-	</target>
+    <!-- ==================== Prepare Target ================================== -->
+    <target name="prepare">
+        <mkdir dir="${build.home}"/>
+        <copy todir="${build.home}">
+            <fileset dir="web"/>
+        </copy>
+        <mkdir dir="${build.home}/WEB-INF/lib"/>
+        <copy todir="${build.home}/WEB-INF/lib">
+            <fileset dir="lib"/>
+        </copy>
+    </target>
 </project>
