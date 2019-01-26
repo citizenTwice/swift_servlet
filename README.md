@@ -21,7 +21,7 @@ The native library is written in Swift, with a small helper module written in C 
      # Make sure the command line tools for Swift 4.2 and Clang/LLVM 10.x are installed 
      cd swift
 	 
-     # Review settings in build.xml
+     # Review settings in Makefile
      make lib
 	 
 	 # Copy the jnilib (actually a dylib) to the target dir
@@ -35,7 +35,7 @@ The Java web application is, essentially, empty with the exception of a facade s
      # Make sure Apache Tomcat 8.5+ or equivalent are installed
      cd webapp
 	 
-     # Review settings in Makefile
+     # Review settings in build.xml
      ant clean dist
 	 
 	 # To deploy the war file
