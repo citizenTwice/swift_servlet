@@ -82,6 +82,9 @@ As a minimal security constraint, the web servlet naively attempts to ignore req
       return (ip == "127.0.0.1" || ip == "0:0:0:0:0:0:0:1" || ip == "::1")
      }
 
+### License
+Apache License Version 2.0 http://www.apache.org/licenses/LICENSE-2.0
+
 ### Contributing
 
 Please feel free to contribute bugfixes/enhancements via github.
