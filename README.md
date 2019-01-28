@@ -92,6 +92,6 @@ Apache License Version 2.0 http://www.apache.org/licenses/LICENSE-2.0
 Please feel free to contribute bugfixes/enhancements via github.
 
 ### Feedback
-Thanks for visting.
+Thanks for visting. 
  
 LG@citizentwice.nl     
