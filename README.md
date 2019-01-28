@@ -76,7 +76,7 @@ Point browser to [http://localhost:8080/swift_servlet/txt2png?txt=To+paint+thy+W
 
 ### Notes
 
-As a minimal security constraint, the web servlet naively attempts to ignore requests not coming from the localhost. If you wish to turn off this restriction, the below function can be removed or changed to return true in all cases. A more flexible and secure level of control can be achieved by creating a context.xml file with a custom  [valve configuration](https://tomcat.apache.org/tomcat-8.5-doc/config/valve.html#Remote_Address_Filter).
+As a minimal security constraint, the web servlet naively attempts to ignore requests not coming from the localhost. If you wish to turn off this restriction, the below function can be removed or changed to return true in all cases. A more flexible and secure level of control can be achieved by creating a context.xml file with a custom  [valve configuration](https://tomcat.apache.org/tomcat-8.5-doc/config/valve.html#Remote_Address_Valve).
 
      private func isLocal(
       _ ip:String
