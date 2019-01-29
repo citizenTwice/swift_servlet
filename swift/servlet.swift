@@ -169,9 +169,11 @@ public func doGet(
     let jOut = jni_call_method_0arg(jenv, jresp, jmGetOStream)
     if (jOut == nil) {
         NSLog("OutputStream = null")
+		return
     }
     if (ba == nil) {
         NSLog("Response string cnv to ByteArray = null")
+		return
     }
     jni_call_method_1arg(jenv, jOut, jmWrite, ba)
 }
