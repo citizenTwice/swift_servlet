@@ -1,5 +1,5 @@
 # Swift Servlet
-### Example of Swift <-> Java/Tomcat integration with JNI   -- coded by LuigiG
+### Example of Swift <-> Java/Tomcat integration with JNI   
 
 This project is an example of Swift/Java integration in the form of a Web Servlet fully backed by a native library written in Swift. It is mainly a learning experiment for the purpose of gaining some exposure to both Swift and JNI (Java Native Interface). Not meant to be particularly useful, if only for the security implications, though perhaps it could be interesting to developers of desktop apps that wish the expose a localhost-bound browser interface.
 
@@ -94,4 +94,4 @@ Please feel free to contribute bugfixes/enhancements via github.
 ### Feedback
 Thanks for visting. 
  
-LG@citizentwice.nl     
+GIT@THLG.nl
