@@ -1,7 +1,7 @@
 /*
 
- Coded by LuigiG | 2019 | LG@citizentwice.nl 
-
+ Coded by LuigiG | 2019 | GIT@THLG.nl
+ 
 The below code is provided for example purposes only and it is licensed under the terms of the Apache License, 
 Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
